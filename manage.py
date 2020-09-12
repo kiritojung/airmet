@@ -18,9 +18,9 @@ def main():
     execute_from_command_line(sys.argv)
 
 
-#if __name__ == '__main__':
-#    main()
 if __name__ == '__main__':
-    import background as bg
-    with bg.BackgroundTask() as b:
-        main()
+    main()
+#if __name__ == '__main__':
+#    import background as bg
+#    with bg.BackgroundTask() as b:
+#        main()
