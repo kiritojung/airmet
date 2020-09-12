@@ -25,7 +25,7 @@ SECRET_KEY = 'o5y+gc%wvn&scc=wy7_q=pv_plfd=6mq+9yrl)_em%78jzmeef'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://aero-met.herokuapp.com']
 
 
 # Application definition
