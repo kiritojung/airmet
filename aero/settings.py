@@ -15,6 +15,8 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+#import os
+#BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -26,7 +28,7 @@ SECRET_KEY = 'o5y+gc%wvn&scc=wy7_q=pv_plfd=6mq+9yrl)_em%78jzmeef'
 DEBUG = True
 
 ALLOWED_HOSTS = ['https://aero-met.herokuapp.com']
-
+#ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -55,7 +57,7 @@ ROOT_URLCONF = 'aero.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
