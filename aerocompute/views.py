@@ -7,5 +7,6 @@ def hello(request):
         {
             'name':'บทความท่องเที่ยว',
             'author':'Mymemo',
-            'tags':tags
+            'tags':tags,
+			'rating':3
         })
