@@ -2,11 +2,12 @@ from django.shortcuts import render
 
 # Create your views here.
 def hello(request):
-    tags = ['น้ำตก', 'ธรรมชาติ', 'หน้าฝน', 'ตากหมอก']
+    tags = [
+				'2020-09-17 พร้อมใช้งาน'
+			]
     return render(request, '../templates/index.html',
-        {
-            'name':'บทความท่องเที่ยว',
-            'author':'Mymemo',
+		{
             'tags':tags,
-			'rating':3
         })
+def page1(request):
+	return render(request, '../templates/page1.html')
