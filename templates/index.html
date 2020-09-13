@@ -7,8 +7,13 @@
     <title>Document</title>
 </head>
 <body>
-    <h2>Homepage</h2>
-    <p>Mymemo</p>
-	<h2>{{ name }}</h2>
+	<h2>ชื่อบทความ : {{ name }}</h2>
+	<h2>ชื่อผู้แต่ง : {{ author }}</h2>
+	<h2>ป้ายกำกับ</h2>
+	<ul>
+		{% for tag in tags %}
+			<li>{{ tag }}</li>
+		{% endfor %}
+	</ul>
 </body>
 </html>
