@@ -3,12 +3,14 @@ from django.shortcuts import render
 
 # Create your views here.
 def hello(request):
-    tags = [
-				'2020-09-17 พร้อมใช้งาน'
+	per = '80'
+	tags = [
+				'2020-09-15 อยู่ระหว่างการอัพเดท Pressure From Table 3.12.2'
 			]
-    return render(request, '../templates/index.html',
+	return render(request, '../templates/index.html',
 		{
             'tags':tags,
+			'per' : per,
         })
 
 def page1(request):

@@ -1,4 +1,7 @@
 {% extends 'layout.html' %}
+{% block title %}
+	Pressure From Table 3.12.2
+{% endblock %}
 {% block content %}
 <h2 align="center">Pressure From Table 3.12.2</h2>
 <div class="row">
@@ -23,11 +26,11 @@
 		<div class="row">
 			<div class="col">
 				<label for="">ความกดอากาศของ ปรอท (P1)</label>
-				<input type="text" class="form-control" name="p1" id="p1" onkeypress="return isNumberKey(event)" placeholder="hPa">
+				<input type="text" class="form-control" name="p1" id="p1" onkeypress="return isNumberKey(event)" placeholder="hPa" required>
 			</div>
 			<div class="col">
 				<label for="">ความสูง (&phi;1)</label>
-				<input type="text" class="form-control" name="phi1" id="phi1" onkeypress="return isNumberKey(event)" placeholder="m">
+				<input type="text" class="form-control" name="phi1" id="phi1" onkeypress="return isNumberKey(event)" placeholder="m" required>
 			</div>
 		</div>
 	</div>
@@ -35,7 +38,7 @@
 		<div class="row">
 			<div class="col">
 				<label for="">ความสูง (&phi;2)</label>
-				<input type="text" class="form-control" name="phi2" id="phi2" onkeypress="return isNumberKey(event)" placeholder="m">
+				<input type="text" class="form-control" name="phi2" id="phi2" onkeypress="return isNumberKey(event)" placeholder="m" required>
 			</div>
 		</div>
 	</div>
@@ -43,15 +46,80 @@
 		<div class="row">
 			<div class="col">
 				<label for="">อุณหภูมิ (T)</label>
-				<input type="text" class="form-control" name="t" id="t" onkeypress="return isNumberKey(event)" placeholder="&#8451;">
+				<input type="text" class="form-control" name="t" id="t" onkeypress="return isNumberKey(event)" placeholder="&#8451;" required>
 			</div>
 			<div class="col">
 				<label for="">อุณหภูมิจุดน้ำค้าง (Td)</label>
-				<input type="text" class="form-control" name="td" id="td" onkeypress="return isNumberKey(event)" placeholder="&#8451;">
+				<input type="text" class="form-control" name="td" id="td" onkeypress="return isNumberKey(event)" placeholder="&#8451;" required>
 			</div>
 		</div>
 	</div>
-	<br>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">
+  ตั้งค่าจำนวนจุดทศนิยม
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">ตั้งค่าจำนวนจุดทศนิยม</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+		 <p>หมายเหตุ : จำนวนเต็ม ให้ใส่ 0, ต้องการทศนิยมทั้งหมด ให้ใส่ 111 </p>
+      	<div class="form-group row">
+			<div class="col">
+				<label for="fLat">ละติจูด (decimal)</label>
+				<input type="text" class="form-control" name="fLat" id="fLat" onkeypress="return isNumberKey(event)" placeholder="จำนวนทศนิยมที่ต้องการ" value="111" required>
+			</div>
+			<div class="col">
+				<label for="">Tv</label>
+				<input type="text" class="form-control" name="fTv" id="fTv" onkeypress="return isNumberKey(event)" placeholder="	จำนวนทศนิยมที่ต้องการ" value="2" required>
+			</div>
+		</div>
+		<div class="form-group row">
+			<div class="col">
+				<label for="">&phi;1 (gpm)</label>
+				<input type="text" class="form-control" name="fPhi1" id="fPhi1" onkeypress="return isNumberKey(event)" placeholder="จำนวนทศนิยมที่ต้องการ" value="0" required>
+			</div>
+			<div class="col">
+				<label for="">&phi;2 (gpm)</label>
+				<input type="text" class="form-control" name="fPhi2" id="fPhi2" onkeypress="return isNumberKey(event)" placeholder="จำนวนทศนิยมที่ต้องการ" value="0" required>
+			</div>
+		</div>
+		<div class="form-group row">
+			<div class="col">
+				<label for="">&Delta;&phi;0 (gpm)</label>
+				<input type="text" class="form-control" name="fDeltaPhi0" id="fDeltaPhi0" onkeypress="return isNumberKey(event)" placeholder="จำนวนทศนิยมที่ต้องการ" value="4" required>
+			</div>
+			<div class="col">
+				<label for="">x</label>
+				<input type="text" class="form-control" name="fX" id="fX" onkeypress="return isNumberKey(event)" placeholder="จำนวนทศนิยมที่ต้องการ" value="4" required>
+			</div>
+		</div>
+		<div class="form-group row">
+			<div class="col">
+				<label for="">y</label>
+				<input type="text" class="form-control" name="fY" id="fY" onkeypress="return isNumberKey(event)" placeholder="จำนวนทศนิยมที่ต้องการ" value="4" required>
+			</div>
+			<div class="col">
+				<label for="">P2 (hPa)</label>
+				<input type="text" class="form-control" name="fP2" id="fP2" onkeypress="return isNumberKey(event)" placeholder="จำนวนทศนิยมที่ต้องการ" value="2" required>
+			</div>
+		</div>
+      </div>
+      <div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end modal -->
+	<br><br>
 	<input type="submit" value="คำนวณค่า" class="btn btn-primary">
 	<!--<button class="btn btn-primary">คำนวณค่า</button>-->
 </form>
@@ -66,8 +134,24 @@
 <script>
 	
 	const form = document.getElementById('form');
-	const lat1 = document.querySelector('#lat1');
+	const lat1_d = document.querySelector('#lat1');
+	const lat2_d = document.querySelector('#lat2');
+	const lat3_d = document.querySelector('#lat3');
+	const p1_d = document.querySelector('#p1');
+	const phi1_d = document.querySelector('#phi1');
+	const phi2_d = document.querySelector('#phi2');
+	const t_d = document.querySelector('#t');
+	const td_d = document.querySelector('#td');
 	const seconds = document.querySelector('#seconds');
+	
+	const fLat_d = document.querySelector('#fLat');
+	const fTv_d = document.querySelector('#fTv');
+	const fPhi1_d = document.querySelector('#fPhi1');
+	const fPhi2_d = document.querySelector('#fPhi2');
+	const fDeltaPhi0_d = document.querySelector('#fDeltaPhi0');
+	const fX_d = document.querySelector('#fX');
+	const fY_d = document.querySelector('#fY');
+	const fP2_d = document.querySelector('#fP2');
 	
 	form.addEventListener("submit", submitHandler);
 	
@@ -83,9 +167,80 @@
 	
 	function submitHandler(e){
 		e.preventDefault();
-		let c = lat1.value * 2;
-		seconds.innerHTML += '<li>' + c + '</li>';
+		var lat1 = Number(lat1_d.value);
+		var lat2 = Number(lat2_d.value);
+		var lat3 = Number(lat3_d.value);
+		var p1 = Number(p1_d.value);
+		var phi1 = Number(phi1_d.value);
+		var phi2 = Number(phi2_d.value);
+		var t = Number(t_d.value);
+		var td = Number(td_d.value);
+		
+		var fLat = Number(fLat_d.value);
+		var fTv = Number(fTv_d.value);
+		var fPhi1 = Number(fPhi1_d.value);
+		var fPhi2 = Number(fPhi2_d.value);
+		var fDeltaPhi0 = Number(fDeltaPhi0_d.value);
+		var fX = Number(fX_d.value);
+		var fY = Number(fY_d.value);
+		var fP2 = Number(fP2_d.value);
+		
+		//convert lat
+		lat = lat1 + (lat2/60) + (lat3/3600);
+		lat = calRd(lat, fLat);
+		
+		//cal gpm
+		var z1 = phi1;
+		var z2 = phi2;
+		var pi = Math.PI;
+		var n = lat * pi / 180;
+		var gZero = 9.8;
+		var gCal1 = 9.7803253359*(1+0.00193185265241*Math.pow(Math.sin(n), 2));
+		var gCal2 = Math.sqrt(1-0.00669437999013*Math.pow(Math.sin(n), 2));
+		var gCal = gCal1/gCal2;
+		var r1 = Math.pow(Math.cos(n)/6356752.0, 2);
+		var r2 = Math.pow(Math.sin(n)/6378137.0, 2);
+		var R = 1/Math.sqrt(r1+r2);
+		var zG1 = (gCal/gZero)*(R*z1/(z1+R));
+		var zG2 = (gCal/gZero)*(R*z2/(z2+R));
+		zG1 = calRd(zG1, fPhi1);
+		zG2 = calRd(zG2, fPhi2);
+		
+		//cal tv
+		var tv = (t + 273.15)/(1-0.379*((6.11*Math.pow(10, (7.5*td)/(237.7+td)))/(p1))) - 273.15;
+		tv = calRd(tv, fTv);
+		
+		//cal x
+		var x = 67.445*273.15*Math.log10(1100/p1);
+		x = calRd(x, fX);
+		
+		//cal delta phi
+		var delta_phi = zG2 - zG1;
+		delta_phi = Math.abs(delta_phi);
+		
+		//cal delta phi 0
+		var delta_phi0 = (273.15/(273.15 + tv))*delta_phi;
+		delta_phi0 = calRd(delta_phi0, fDeltaPhi0);
+		
+		seconds.innerHTML += '<li>Latitude = ' + lat + '</li>';
+		seconds.innerHTML += '<li>&phi;1 = ' + zG1 + ' gpm</li>';
+		seconds.innerHTML += '<li>&phi;2 = ' + zG2 + ' gpm</li>';
+		seconds.innerHTML += '<li>Tv = ' + tv + ' &#8451;</li>';
+		seconds.innerHTML += '<li>x = ' + x + '</li>';
+		seconds.innerHTML += '<li>&Delta;&phi; = ' + delta_phi + ' gpm</li>';
+		seconds.innerHTML += '<li>&Delta;&phi;0 = ' + delta_phi0 + ' gpm</li>';
+		seconds.innerHTML += '<hr>';
 	}
 	
+	function calRd(kar, sate){
+		if(sate==111){
+			var num = kar;
+		}else if(sate==0){
+			var num = Math.round(kar);
+		}else{
+			var num = Math.round(kar*Math.pow(10, sate))/Math.pow(10, sate);
+		}
+		return num;
+	}
 </script>
 {% endblock %}
