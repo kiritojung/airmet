@@ -3,9 +3,9 @@ from django.shortcuts import render
 
 # Create your views here.
 def hello(request):
-	per = '80'
+	per = '100'
 	tags = [
-				'2020-09-15 อยู่ระหว่างการอัพเดท Pressure From Table 3.12.2'
+				'2020-09-17 Pressure From Table 3.12.2 พร้อมใช้งาน'
 			]
 	return render(request, '../templates/index.html',
 		{

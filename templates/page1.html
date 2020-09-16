@@ -97,7 +97,7 @@
 				<input type="text" class="form-control" name="fDeltaPhi0" id="fDeltaPhi0" onkeypress="return isNumberKey(event)" placeholder="จำนวนทศนิยมที่ต้องการ" value="4" required>
 			</div>
 			<div class="col">
-				<label for="">x</label>
+				<label for="">x</label><!-- x y มาด้วยกันได้ -->
 				<input type="text" class="form-control" name="fX" id="fX" onkeypress="return isNumberKey(event)" placeholder="จำนวนทศนิยมที่ต้องการ" value="4" required>
 			</div>
 		</div>
@@ -222,13 +222,23 @@
 		var delta_phi0 = (273.15/(273.15 + tv))*delta_phi;
 		delta_phi0 = calRd(delta_phi0, fDeltaPhi0);
 		
+		//cal y
+		var y = x + delta_phi0;
+		y = calRd(y, fY);
+		
+		//cal p2
+		p2 = 1100/Math.pow(10, y/(67.445*273.15));
+		p2 = calRd(p2, fP2);
+		
 		seconds.innerHTML += '<li>Latitude = ' + lat + '</li>';
-		seconds.innerHTML += '<li>&phi;1 = ' + zG1 + ' gpm</li>';
-		seconds.innerHTML += '<li>&phi;2 = ' + zG2 + ' gpm</li>';
-		seconds.innerHTML += '<li>Tv = ' + tv + ' &#8451;</li>';
-		seconds.innerHTML += '<li>x = ' + x + '</li>';
+		seconds.innerHTML += '<li>&phi;1 = ' + zG1.toFixed(fPhi1) + ' gpm</li>';
+		seconds.innerHTML += '<li>&phi;2 = ' + zG2.toFixed(fPhi2) + ' gpm</li>';
+		seconds.innerHTML += '<li>Tv = ' + tv.toFixed(fTv) + ' &#8451;</li>';
+		seconds.innerHTML += '<li>x = ' + x.toFixed(fX) + '</li>';
 		seconds.innerHTML += '<li>&Delta;&phi; = ' + delta_phi + ' gpm</li>';
-		seconds.innerHTML += '<li>&Delta;&phi;0 = ' + delta_phi0 + ' gpm</li>';
+		seconds.innerHTML += '<li>&Delta;&phi;0 = ' + delta_phi0.toFixed(fDeltaPhi0) + ' gpm</li>';
+		seconds.innerHTML += '<li>y = ' + y.toFixed(fY) + '</li>';
+		seconds.innerHTML += '<li>P2 = ' + p2.toFixed(fP2) + ' hPa</li>';
 		seconds.innerHTML += '<hr>';
 	}
 	
