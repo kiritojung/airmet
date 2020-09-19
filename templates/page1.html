@@ -118,7 +118,10 @@
     </div>
   </div>
 </div>
-<!-- end modal -->
+<!-- end modal -->&nbsp;&nbsp;&nbsp;
+<button type="button" class="btn btn-info" onclick="clearleft();">Clear Left</button>
+&nbsp;&nbsp;&nbsp;
+<button type="button" class="btn btn-danger" onclick="clearright();">Clear Right</button>
 	<br><br>
 	<input type="submit" value="คำนวณค่า" class="btn btn-primary">
 	<!--<button class="btn btn-primary">คำนวณค่า</button>-->
@@ -152,9 +155,25 @@
 	const fX_d = document.querySelector('#fX');
 	const fY_d = document.querySelector('#fY');
 	const fP2_d = document.querySelector('#fP2');
+
 	
 	form.addEventListener("submit", submitHandler);
 	
+	
+	function clearright(){
+		seconds.innerHTML = '';
+	}
+	
+	function clearleft(){
+		lat1_d.value = "";
+		lat2_d.value = "";
+		lat3_d.value = '';
+		p1_d.value = '';
+		phi1_d.value = '';
+		phi2_d.value = '';
+		t_d.value = '';
+		td_d.value = '';
+	}
 	 
 	function isNumberKey(evt)
 	{
@@ -216,7 +235,7 @@
 		
 		//cal delta phi
 		var delta_phi = zG2 - zG1;
-		delta_phi = Math.abs(delta_phi);
+		//delta_phi = Math.abs(delta_phi);
 		
 		//cal delta phi 0
 		var delta_phi0 = (273.15/(273.15 + tv))*delta_phi;
