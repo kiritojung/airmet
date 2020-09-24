@@ -159,6 +159,24 @@
 	
 	form.addEventListener("submit", submitHandler);
 	
+	lat1_d.value = localStorage.getItem('lat1');
+	lat2_d.value = localStorage.getItem('lat2');
+	lat3_d.value = localStorage.getItem('lat3');
+	p1_d.value = localStorage.getItem('p1');
+	phi1_d.value = localStorage.getItem('phi1');
+	phi2_d.value = localStorage.getItem('phi2');
+	t_d.value = localStorage.getItem('t');
+	td_d.value = localStorage.getItem('td');
+	
+	/*
+	fLat_d.value = localStorage.getItem('fLat');
+	fTv_d.value = localStorage.getItem('fTv');
+	fPhi1_d.value = localStorage.getItem('fPhi1');
+	fPhi2_d.value = localStorage.getItem('fPhi2');
+	fDeltaPhi0_d.value = localStorage.getItem('fDeltaPhi0');
+	fX_d.value = localStorage.getItem('fX');
+	fY_d.value = localStorage.getItem('fY');
+	fP2_d.value = localStorage.getItem('fP2');	*/
 	
 	function clearright(){
 		seconds.innerHTML = '';
@@ -173,6 +191,16 @@
 		phi2_d.value = '';
 		t_d.value = '';
 		td_d.value = '';
+		
+		localStorage.removeItem('lat1');
+		localStorage.removeItem('lat2');
+		localStorage.removeItem('lat3');
+		localStorage.removeItem('p1');
+		localStorage.removeItem('phi1');
+		localStorage.removeItem('phi2');
+		localStorage.removeItem('t');
+		localStorage.removeItem('td');
+	
 	}
 	 
 	function isNumberKey(evt)
@@ -204,6 +232,25 @@
 		var fY = Number(fY_d.value);
 		var fP2 = Number(fP2_d.value);
 		
+		
+		localStorage.setItem('lat1', lat1);
+		localStorage.setItem('lat2', lat2);
+		localStorage.setItem('lat3', lat3);
+		localStorage.setItem('p1', p1);
+		localStorage.setItem('phi1', phi1);
+		localStorage.setItem('phi2', phi2);
+		localStorage.setItem('t', t);
+		localStorage.setItem('td', td);
+		/*
+		localStorage.setItem('fLat', fLat);
+		localStorage.setItem('fTv', fTv);
+		localStorage.setItem('fPhi1', fPhi1);
+		localStorage.setItem('fPhi2', fPhi2);
+		localStorage.setItem('fDeltaPhi0', fDeltaPhi0);
+		localStorage.setItem('fX', fX);
+		localStorage.setItem('fY', fY);
+		localStorage.setItem('fP2', fP2);
+		*/
 		//convert lat
 		lat = lat1 + (lat2/60) + (lat3/3600);
 		lat = calRd(lat, fLat);
