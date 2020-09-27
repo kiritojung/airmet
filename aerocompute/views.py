@@ -20,7 +20,7 @@ def page1(request):
 	return render(request, '../templates/page1.html')
 	
 def qfeH(request):
-	return render(reques, '../templates/qfeHeight')
+	return render(reques, '../templates/qfeHeight.html')
 '''
 class AjaxHandlerView(View):
 	def get(self, request):
