@@ -23,4 +23,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.hello),
 	path('page1/', views.page1),
+	path('qfeHeight/', views.qfeH),
 ]
