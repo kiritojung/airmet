@@ -5,7 +5,7 @@ from django.shortcuts import render
 def hello(request):
 	per = '30'
 	tags = [
-				'2020-09-27 หาความสูง QFE อยู่ระหว่างดำเนินการ'
+				'2020-09-27 หาความสูง QFE อยู่ระหว่างดำเนินการ',
 				'2020-09-24 Pressure From Table 3.12.2 เพิ่มระบบจำค่า input ล่าสุดใน TextBox',
 				'2020-09-19 Pressure From Table 3.12.2 แก้ไข นำค่าสัมบูรณ์ออกจาก \u0394\u03A6, ใส่ปุ่มเคลียร์ฝั่งซ้ายและขวา',
 				'2020-09-17 Pressure From Table 3.12.2 พร้อมใช้งาน'
