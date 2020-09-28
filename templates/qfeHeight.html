@@ -26,11 +26,11 @@
 		<div class="row">
 			<div class="col">
 				<label for="">ความกดอากาศของ QFE</label>
-				<input type="text" class="form-control" name="p1" id="p1" onkeypress="return isNumberKey(event)" placeholder="hPa" required>
+				<input type="text" class="form-control" name="qfe" id="qfe" onkeypress="return isNumberKey(event)" placeholder="hPa" required>
 			</div>
 			<div class="col">
 				<label for="">ความกดอากาศของ QNH</label>
-				<input type="text" class="form-control" name="phi1" id="phi1" onkeypress="return isNumberKey(event)" placeholder="m" required>
+				<input type="text" class="form-control" name="qnh" id="qnh" onkeypress="return isNumberKey(event)" placeholder="m" required>
 			</div>
 		</div>
 	</div>
@@ -58,7 +58,7 @@
 			</div>
 			<div class="col">
 				<label for="">Height</label>
-				<input type="text" class="form-control" name="fTv" id="fTv" onkeypress="return isNumberKey(event)" placeholder="	จำนวนทศนิยมที่ต้องการ" value="0" required>
+				<input type="text" class="form-control" name="fH" id="fH" onkeypress="return isNumberKey(event)" placeholder="	จำนวนทศนิยมที่ต้องการ" value="0" required>
 			</div>
 		</div>
       </div>
@@ -90,21 +90,11 @@
 	const lat1_d = document.querySelector('#lat1');
 	const lat2_d = document.querySelector('#lat2');
 	const lat3_d = document.querySelector('#lat3');
-	const p1_d = document.querySelector('#p1');
-	const phi1_d = document.querySelector('#phi1');
-	const phi2_d = document.querySelector('#phi2');
-	const t_d = document.querySelector('#t');
-	const td_d = document.querySelector('#td');
-	const seconds = document.querySelector('#seconds');
+	const qfe_d = document.querySelector('#qfe');
+	const qnh_d = document.querySelector('#qnh');
 	
 	const fLat_d = document.querySelector('#fLat');
-	const fTv_d = document.querySelector('#fTv');
-	const fPhi1_d = document.querySelector('#fPhi1');
-	const fPhi2_d = document.querySelector('#fPhi2');
-	const fDeltaPhi0_d = document.querySelector('#fDeltaPhi0');
-	const fX_d = document.querySelector('#fX');
-	const fY_d = document.querySelector('#fY');
-	const fP2_d = document.querySelector('#fP2');
+	const fH_d = document.querySelector('#fH');
 
 	
 	form.addEventListener("submit", submitHandler);
@@ -112,11 +102,8 @@
 	lat1_d.value = localStorage.getItem('lat1');
 	lat2_d.value = localStorage.getItem('lat2');
 	lat3_d.value = localStorage.getItem('lat3');
-	p1_d.value = localStorage.getItem('p1');
-	phi1_d.value = localStorage.getItem('phi1');
-	phi2_d.value = localStorage.getItem('phi2');
-	t_d.value = localStorage.getItem('t');
-	td_d.value = localStorage.getItem('td');
+	qfe_d.value = localStorage.getItem('qfe');
+	qnh_d.value = localStorage.getItem('qnh');
 	
 	/*
 	fLat_d.value = localStorage.getItem('fLat');
@@ -136,20 +123,14 @@
 		lat1_d.value = "";
 		lat2_d.value = "";
 		lat3_d.value = '';
-		p1_d.value = '';
-		phi1_d.value = '';
-		phi2_d.value = '';
-		t_d.value = '';
-		td_d.value = '';
+		qfe_d.value = '';
+		qnh_d.value = '';
 		
 		localStorage.removeItem('lat1');
 		localStorage.removeItem('lat2');
 		localStorage.removeItem('lat3');
-		localStorage.removeItem('p1');
-		localStorage.removeItem('phi1');
-		localStorage.removeItem('phi2');
-		localStorage.removeItem('t');
-		localStorage.removeItem('td');
+		localStorage.removeItem('qfe');
+		localStorage.removeItem('qnh');
 	
 	}
 	 
@@ -167,30 +148,18 @@
 		var lat1 = Number(lat1_d.value);
 		var lat2 = Number(lat2_d.value);
 		var lat3 = Number(lat3_d.value);
-		var p1 = Number(p1_d.value);
-		var phi1 = Number(phi1_d.value);
-		var phi2 = Number(phi2_d.value);
-		var t = Number(t_d.value);
-		var td = Number(td_d.value);
+		var qfe = Number(qfe_d.value);
+		var qnh = Number(qnh_d.value);
 		
 		var fLat = Number(fLat_d.value);
-		var fTv = Number(fTv_d.value);
-		var fPhi1 = Number(fPhi1_d.value);
-		var fPhi2 = Number(fPhi2_d.value);
-		var fDeltaPhi0 = Number(fDeltaPhi0_d.value);
-		var fX = Number(fX_d.value);
-		var fY = Number(fY_d.value);
-		var fP2 = Number(fP2_d.value);
+		var fH = Number(fH_d.value);
 		
 		
 		localStorage.setItem('lat1', lat1);
 		localStorage.setItem('lat2', lat2);
 		localStorage.setItem('lat3', lat3);
-		localStorage.setItem('p1', p1);
-		localStorage.setItem('phi1', phi1);
-		localStorage.setItem('phi2', phi2);
-		localStorage.setItem('t', t);
-		localStorage.setItem('td', td);
+		localStorage.setItem('qfe', qfe);
+		localStorage.setItem('qnh', qnh);
 		/*
 		localStorage.setItem('fLat', fLat);
 		localStorage.setItem('fTv', fTv);
@@ -205,46 +174,7 @@
 		lat = lat1 + (lat2/60) + (lat3/3600);
 		lat = calRd(lat, fLat);
 		
-		//cal gpm
-		var z1 = phi1;
-		var z2 = phi2;
-		var pi = Math.PI;
-		var n = lat * pi / 180;
-		var gZero = 9.8;
-		var gCal1 = 9.7803253359*(1+0.00193185265241*Math.pow(Math.sin(n), 2));
-		var gCal2 = Math.sqrt(1-0.00669437999013*Math.pow(Math.sin(n), 2));
-		var gCal = gCal1/gCal2;
-		var r1 = Math.pow(Math.cos(n)/6356752.0, 2);
-		var r2 = Math.pow(Math.sin(n)/6378137.0, 2);
-		var R = 1/Math.sqrt(r1+r2);
-		var zG1 = (gCal/gZero)*(R*z1/(z1+R));
-		var zG2 = (gCal/gZero)*(R*z2/(z2+R));
-		zG1 = calRd(zG1, fPhi1);
-		zG2 = calRd(zG2, fPhi2);
-		
-		//cal tv
-		var tv = (t + 273.15)/(1-0.379*((6.11*Math.pow(10, (7.5*td)/(237.7+td)))/(p1))) - 273.15;
-		tv = calRd(tv, fTv);
-		
-		//cal x
-		var x = 67.445*273.15*Math.log10(1100/p1);
-		x = calRd(x, fX);
-		
-		//cal delta phi
-		var delta_phi = zG2 - zG1;
-		//delta_phi = Math.abs(delta_phi);
-		
-		//cal delta phi 0
-		var delta_phi0 = (273.15/(273.15 + tv))*delta_phi;
-		delta_phi0 = calRd(delta_phi0, fDeltaPhi0);
-		
-		//cal y
-		var y = x + delta_phi0;
-		y = calRd(y, fY);
-		
-		//cal p2
-		p2 = 1100/Math.pow(10, y/(67.445*273.15));
-		p2 = calRd(p2, fP2);
+		//cal Height
 		
 		seconds.innerHTML += '<li>Latitude = ' + lat + '</li>';
 		seconds.innerHTML += '<li>&phi;1 = ' + zG1.toFixed(fPhi1) + ' gpm</li>';
