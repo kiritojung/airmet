@@ -105,16 +105,6 @@
 	qfe_d.value = localStorage.getItem('qfe');
 	qnh_d.value = localStorage.getItem('qnh');
 	
-	/*
-	fLat_d.value = localStorage.getItem('fLat');
-	fTv_d.value = localStorage.getItem('fTv');
-	fPhi1_d.value = localStorage.getItem('fPhi1');
-	fPhi2_d.value = localStorage.getItem('fPhi2');
-	fDeltaPhi0_d.value = localStorage.getItem('fDeltaPhi0');
-	fX_d.value = localStorage.getItem('fX');
-	fY_d.value = localStorage.getItem('fY');
-	fP2_d.value = localStorage.getItem('fP2');	*/
-	
 	function clearright(){
 		seconds.innerHTML = '';
 	}
@@ -160,32 +150,20 @@
 		localStorage.setItem('lat3', lat3);
 		localStorage.setItem('qfe', qfe);
 		localStorage.setItem('qnh', qnh);
-		/*
-		localStorage.setItem('fLat', fLat);
-		localStorage.setItem('fTv', fTv);
-		localStorage.setItem('fPhi1', fPhi1);
-		localStorage.setItem('fPhi2', fPhi2);
-		localStorage.setItem('fDeltaPhi0', fDeltaPhi0);
-		localStorage.setItem('fX', fX);
-		localStorage.setItem('fY', fY);
-		localStorage.setItem('fP2', fP2);
-		*/
+		
 		//convert lat
 		lat = lat1 + (lat2/60) + (lat3/3600);
 		lat = calRd(lat, fLat);
 		
 		//cal Height
+		p0 = 1013.25
+		t0 = 288.15
+		he = (t0/0.0065) * (1 - Math.pow((qfe/p0), 1/5.2561))
+		hh = (t0/0.0065) * (1 - Math.pow((qnh/p0), 1/5.2561))
+		hi = calRd(he-hh, fH)
 		
 		seconds.innerHTML += '<li>Latitude = ' + lat + '</li>';
-		seconds.innerHTML += '<li>&phi;1 = ' + zG1.toFixed(fPhi1) + ' gpm</li>';
-		seconds.innerHTML += '<li>&phi;2 = ' + zG2.toFixed(fPhi2) + ' gpm</li>';
-		seconds.innerHTML += '<li>Tv = ' + tv.toFixed(fTv) + ' &#8451;</li>';
-		seconds.innerHTML += '<li>x = ' + x.toFixed(fX) + '</li>';
-		seconds.innerHTML += '<li>&Delta;&phi; = ' + delta_phi + ' gpm</li>';
-		seconds.innerHTML += '<li>&Delta;&phi;0 = ' + delta_phi0.toFixed(fDeltaPhi0) + ' gpm</li>';
-		seconds.innerHTML += '<li>y = ' + y.toFixed(fY) + '</li>';
-		seconds.innerHTML += '<li>P2 = ' + p2.toFixed(fP2) + ' hPa</li>';
-		seconds.innerHTML += '<hr>';
+		seconds.innerHTML += '<li>Height = ' + hi + ' m</li>';
 	}
 	
 	function calRd(kar, sate){
