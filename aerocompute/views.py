@@ -3,8 +3,9 @@ from django.shortcuts import render
 
 # Create your views here.
 def hello(request):
-	per = '80'
+	per = '100'
 	tags = [
+				'2020-09-30 หาความสูง QFE พร้อมใช้งาน',
 				'2020-09-29 หาความสูง QFE อยู่ระหว่างดำเนินการ ',
 				'2020-09-28 หาความสูง QFE อยู่ระหว่างดำเนินการ',
 				'2020-09-27 หาความสูง QFE อยู่ระหว่างดำเนินการ',
