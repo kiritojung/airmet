@@ -3,12 +3,10 @@ from django.shortcuts import render
 
 # Create your views here.
 def hello(request):
-	per = '100'
+	per = '10'
 	tags = [
+				'2020-10-01 QNH from Table WMO-No.188.TP.94 อยู่ระหว่างดำเนินการ...',
 				'2020-09-30 หาความสูง QFE พร้อมใช้งาน',
-				'2020-09-29 หาความสูง QFE อยู่ระหว่างดำเนินการ ',
-				'2020-09-28 หาความสูง QFE อยู่ระหว่างดำเนินการ',
-				'2020-09-27 หาความสูง QFE อยู่ระหว่างดำเนินการ',
 				'2020-09-24 Pressure From Table 3.12.2 เพิ่มระบบจำค่า input ล่าสุดใน TextBox',
 				'2020-09-19 Pressure From Table 3.12.2 แก้ไข นำค่าสัมบูรณ์ออกจาก \u0394\u03A6, ใส่ปุ่มเคลียร์ฝั่งซ้ายและขวา',
 				'2020-09-17 Pressure From Table 3.12.2 พร้อมใช้งาน'
@@ -24,6 +22,9 @@ def page1(request):
 	
 def qfeH(request):
 	return render(request, '../templates/qfeHeight.html')
+	
+def qnh(request):
+	return render(request, '../templates/page3.html')
 '''
 class AjaxHandlerView(View):
 	def get(self, request):

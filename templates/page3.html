@@ -1,0 +1,180 @@
+{% extends 'layout.html' %}
+{% block title %}
+	QNH from Table WMO-No.188.TP.94
+{% endblock %}
+{% block content %}
+<h2 align="center">QNH from Table WMO-No.188.TP.94</h2>
+<div class="row">
+<!-- left -->
+<div class="col">
+<form action="" method="get" id="form">
+	<div class="form-group">
+		<label for="">ละติจูด</label>
+		<div class="row">
+			<div class="col">
+				<input type="text" class="form-control" name="lat1" id="lat1" onkeypress="return isNumberKey(event)" placeholder="๐" autofocus>
+			</div>
+			<div class="col">
+				<input type="text" class="form-control" name="lat2" id="lat2" onkeypress="return isNumberKey(event)" placeholder="'">
+			</div>
+			<div class="col">
+				<input type="text" class="form-control" name="lat3" id="lat3" onkeypress="return isNumberKey(event)" placeholder="''N">
+			</div>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="row">
+			<div class="col">
+				<label for="">ความกดอากาศของ QFE</label>
+				<input type="text" class="form-control" name="qfe" id="qfe" onkeypress="return isNumberKey(event)" placeholder="hPa" required>
+			</div>
+			<div class="col">
+				<label for="">ความกดอากาศของ QNH</label>
+				<input type="text" class="form-control" name="qnh" id="qnh" onkeypress="return isNumberKey(event)" placeholder="m" required>
+			</div>
+		</div>
+	</div>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">
+  ตั้งค่าจำนวนจุดทศนิยม
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">ตั้งค่าจำนวนจุดทศนิยม</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+		 <p>หมายเหตุ : จำนวนเต็ม ให้ใส่ 0, ต้องการทศนิยมทั้งหมด ให้ใส่ 111 </p>
+      	<div class="form-group row">
+			<div class="col">
+				<label for="fLat">ละติจูด (decimal)</label>
+				<input type="text" class="form-control" name="fLat" id="fLat" onkeypress="return isNumberKey(event)" placeholder="จำนวนทศนิยมที่ต้องการ" value="111" required>
+			</div>
+			<div class="col">
+				<label for="">Height</label>
+				<input type="text" class="form-control" name="fH" id="fH" onkeypress="return isNumberKey(event)" placeholder="	จำนวนทศนิยมที่ต้องการ" value="0" required>
+			</div>
+		</div>
+      </div>
+      <div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end modal -->&nbsp;&nbsp;&nbsp;
+<button type="button" class="btn btn-info" onclick="clearleft();">Clear Left</button>
+&nbsp;&nbsp;&nbsp;
+<button type="button" class="btn btn-danger" onclick="clearright();">Clear Right</button>
+	<br><br>
+	<input type="submit" value="คำนวณค่า" class="btn btn-primary">
+	<!--<button class="btn btn-primary">คำนวณค่า</button>-->
+</form>
+</div>
+<!-- right -->
+<div class="col">
+<ul id='seconds'>
+</ul>
+</div><!-- end row -->
+<!--<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>-->
+<!--<script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>-->
+<script>
+	
+	const form = document.getElementById('form');
+	const lat1_d = document.querySelector('#lat1');
+	const lat2_d = document.querySelector('#lat2');
+	const lat3_d = document.querySelector('#lat3');
+	const qfe_d = document.querySelector('#qfe');
+	const qnh_d = document.querySelector('#qnh');
+	
+	const fLat_d = document.querySelector('#fLat');
+	const fH_d = document.querySelector('#fH');
+
+	
+	form.addEventListener("submit", submitHandler);
+	
+	lat1_d.value = localStorage.getItem('lat1');
+	lat2_d.value = localStorage.getItem('lat2');
+	lat3_d.value = localStorage.getItem('lat3');
+	qfe_d.value = localStorage.getItem('qfe');
+	qnh_d.value = localStorage.getItem('qnh');
+	
+	function clearright(){
+		seconds.innerHTML = '';
+	}
+	
+	function clearleft(){
+		lat1_d.value = "";
+		lat2_d.value = "";
+		lat3_d.value = '';
+		qfe_d.value = '';
+		qnh_d.value = '';
+		
+		localStorage.removeItem('lat1');
+		localStorage.removeItem('lat2');
+		localStorage.removeItem('lat3');
+		localStorage.removeItem('qfe');
+		localStorage.removeItem('qnh');
+	
+	}
+	 
+	function isNumberKey(evt)
+	{
+		var charCode = (evt.which) ? evt.which : evt.keyCode;
+		if (charCode != 46 && charCode > 31 
+		&& (charCode < 48 || charCode > 57))
+		return false;
+		return true;
+	}  
+	
+	function submitHandler(e){
+		e.preventDefault();
+		var lat1 = Number(lat1_d.value);
+		var lat2 = Number(lat2_d.value);
+		var lat3 = Number(lat3_d.value);
+		var qfe = Number(qfe_d.value);
+		var qnh = Number(qnh_d.value);
+		
+		var fLat = Number(fLat_d.value);
+		var fH = Number(fH_d.value);
+		
+		
+		localStorage.setItem('lat1', lat1);
+		localStorage.setItem('lat2', lat2);
+		localStorage.setItem('lat3', lat3);
+		localStorage.setItem('qfe', qfe);
+		localStorage.setItem('qnh', qnh);
+		
+		//convert lat
+		lat = lat1 + (lat2/60) + (lat3/3600);
+		lat = calRd(lat, fLat);
+		
+		//cal Height
+		p0 = 1013.25
+		t0 = 288.15
+		he = (t0/0.0065) * (1 - Math.pow((qfe/p0), 1/5.2561))
+		hh = (t0/0.0065) * (1 - Math.pow((qnh/p0), 1/5.2561))
+		hi = calRd(he-hh, fH)
+		
+		seconds.innerHTML += '<li>Latitude = ' + lat + '</li>';
+		seconds.innerHTML += '<li>Height = ' + hi + ' m</li>';
+	}
+	
+	function calRd(kar, sate){
+		if(sate==111){
+			var num = kar;
+		}else if(sate==0){
+			var num = Math.round(kar);
+		}else{
+			var num = Math.round(kar*Math.pow(10, sate))/Math.pow(10, sate);
+		}
+		return num;
+	}
+</script>
+{% endblock %}
