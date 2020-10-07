@@ -29,7 +29,7 @@
 				<input type="text" class="form-control" name="qfe" id="qfe" onkeypress="return isNumberKey(event)" placeholder="hPa" required>
 			</div>
 			<div class="col">
-				<label for="">ความสูง</label>
+				<label for="">ความสูงสถานี</label>
 				<input type="text" class="form-control" name="h" id="h" onkeypress="return isNumberKey(event)" placeholder="m" required>
 			</div>
 		</div>
@@ -57,7 +57,7 @@
 				<input type="text" class="form-control" name="fLat" id="fLat" onkeypress="return isNumberKey(event)" placeholder="จำนวนทศนิยมที่ต้องการ" value="111" required>
 			</div>
 			<div class="col">
-				<label for="">Height</label>
+				<label for="">z(gpm)</label>
 				<input type="text" class="form-control" name="fH" id="fH" onkeypress="return isNumberKey(event)" placeholder="	จำนวนทศนิยมที่ต้องการ" value="0" required>
 			</div>
 		</div>
@@ -91,7 +91,7 @@
 	const lat2_d = document.querySelector('#lat2');
 	const lat3_d = document.querySelector('#lat3');
 	const qfe_d = document.querySelector('#qfe');
-	const qnh_d = document.querySelector('#qnh');
+	const h_d = document.querySelector('#h');
 	
 	const fLat_d = document.querySelector('#fLat');
 	const fH_d = document.querySelector('#fH');
@@ -103,7 +103,7 @@
 	lat2_d.value = localStorage.getItem('lat2');
 	lat3_d.value = localStorage.getItem('lat3');
 	qfe_d.value = localStorage.getItem('qfe');
-	qnh_d.value = localStorage.getItem('qnh');
+	h_d.value = localStorage.getItem('h');
 	
 	function clearright(){
 		seconds.innerHTML = '';
@@ -114,13 +114,13 @@
 		lat2_d.value = "";
 		lat3_d.value = '';
 		qfe_d.value = '';
-		qnh_d.value = '';
+		h_d.value = '';
 		
 		localStorage.removeItem('lat1');
 		localStorage.removeItem('lat2');
 		localStorage.removeItem('lat3');
 		localStorage.removeItem('qfe');
-		localStorage.removeItem('qnh');
+		localStorage.removeItem('h');
 	
 	}
 	 
@@ -139,7 +139,7 @@
 		var lat2 = Number(lat2_d.value);
 		var lat3 = Number(lat3_d.value);
 		var qfe = Number(qfe_d.value);
-		var qnh = Number(qnh_d.value);
+		var h = Number(h_d.value);
 		
 		var fLat = Number(fLat_d.value);
 		var fH = Number(fH_d.value);
@@ -149,21 +149,28 @@
 		localStorage.setItem('lat2', lat2);
 		localStorage.setItem('lat3', lat3);
 		localStorage.setItem('qfe', qfe);
-		localStorage.setItem('qnh', qnh);
+		localStorage.setItem('h', h);
 		
 		//convert lat
 		lat = lat1 + (lat2/60) + (lat3/3600);
 		lat = calRd(lat, fLat);
 		
-		//cal Height
-		p0 = 1013.25
-		t0 = 288.15
-		he = (t0/0.0065) * (1 - Math.pow((qfe/p0), 1/5.2561))
-		hh = (t0/0.0065) * (1 - Math.pow((qnh/p0), 1/5.2561))
-		hi = calRd(he-hh, fH)
+		//cal gpm
+		var z = h;
+		var pi = Math.PI;
+		var n = lat * pi / 180;
+		var gZero = 9.8;
+		var gCal1 = 9.7803253359*(1+0.00193185265241*Math.pow(Math.sin(n), 2));
+		var gCal2 = Math.sqrt(1-0.00669437999013*Math.pow(Math.sin(n), 2));
+		var gCal = gCal1/gCal2;
+		var r1 = Math.pow(Math.cos(n)/6356752.0, 2);
+		var r2 = Math.pow(Math.sin(n)/6378137.0, 2);
+		var R = 1/Math.sqrt(r1+r2);
+		var zG = (gCal/gZero)*(R*z/(z+R));
+		zG = calRd(zG, fH);
 		
 		seconds.innerHTML += '<li>Latitude = ' + lat + '</li>';
-		seconds.innerHTML += '<li>Height = ' + hi + ' m</li>';
+		seconds.innerHTML += '<li>Height = ' + zG + ' gpm</li>';
 	}
 	
 	function calRd(kar, sate){
