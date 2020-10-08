@@ -67,8 +67,14 @@
 				<input type="text" class="form-control" name="fHprime" id="fHprime" onkeypress="return isNumberKey(event)" placeholder="จำนวนทศนิยมที่ต้องการ" value="4" required>
 			</div>
 			<div class="col">
-				<label for="">a</label>
+				<label for="">A</label>
 				<input type="text" class="form-control" name="fA" id="fA" onkeypress="return isNumberKey(event)" placeholder="จำนวนทศนิยมที่ต้องการ" value="2" required>
+			</div>
+		</div>
+		<div class="form-group row">
+			<div class="col">
+				<label for="">B</label>
+				<input type="text" class="form-control" name="fB" id="fB" onkeypress="return isNumberKey(event)" placeholder="จำนวนทศนิยมที่ต้องการ" value="5" required>
 			</div>
 		</div>
       </div>
@@ -107,6 +113,7 @@
 	const fH_d = document.querySelector('#fH');
 	const fHprime_d = document.querySelector('#fHprime');
 	const fA_d = document.querySelector('#fA');
+	const fB_d = document.querySelector('#fB');
 
 	
 	form.addEventListener("submit", submitHandler);
@@ -157,6 +164,7 @@
 		var fH = Number(fH_d.value);
 		var fHprime = Number(fHprime_d.value);
 		var fA = Number(fA_d.value);
+		var fB = Number(fB_d.value);
 		
 		
 		localStorage.setItem('lat1', lat1);
@@ -193,10 +201,23 @@
 		var a = -pb * lprime * hprime/tb;
 		a = calRd(a, fA);
 		
+		//B
+		var g = 9.80665;
+		var r = 287.04;
+		var up = g/(lprime * r);
+		var pH = pb * Math.pow(tb/(tb+(lprime * hprime)), up);
+		var b = (pb/pH) * (1+(lprime * hprime/tb));
+		b = calRd(b, fB);
+		
+		//QNH
+		var qnh = a + b*qfe;
+		
 		seconds.innerHTML += '<li>Latitude = ' + lat + '</li>';
 		seconds.innerHTML += '<li>Zg = ' + zG + ' gpm</li>';
 		seconds.innerHTML += '<li>H = ' + hprime + " m'</li>";
-		seconds.innerHTML += '<li>a = ' + a + '</li>';
+		seconds.innerHTML += '<li>A = ' + a + '</li>';
+		seconds.innerHTML += '<li>B = ' + b + '</li>';
+		seconds.innerHTML += '<li>QNH = ' + qnh + ' hPa</li>';
 		seconds.innerHTML += '<hr>';
 	}
 	
