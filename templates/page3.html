@@ -66,6 +66,10 @@
 				<label for="">H (m')</label>
 				<input type="text" class="form-control" name="fHprime" id="fHprime" onkeypress="return isNumberKey(event)" placeholder="จำนวนทศนิยมที่ต้องการ" value="4" required>
 			</div>
+			<div class="col">
+				<label for="">a</label>
+				<input type="text" class="form-control" name="fA" id="fA" onkeypress="return isNumberKey(event)" placeholder="จำนวนทศนิยมที่ต้องการ" value="2" required>
+			</div>
 		</div>
       </div>
       <div class="modal-footer">
@@ -102,6 +106,7 @@
 	const fLat_d = document.querySelector('#fLat');
 	const fH_d = document.querySelector('#fH');
 	const fHprime_d = document.querySelector('#fHprime');
+	const fA_d = document.querySelector('#fA');
 
 	
 	form.addEventListener("submit", submitHandler);
@@ -151,6 +156,7 @@
 		var fLat = Number(fLat_d.value);
 		var fH = Number(fH_d.value);
 		var fHprime = Number(fHprime_d.value);
+		var fA = Number(fA_d.value);
 		
 		
 		localStorage.setItem('lat1', lat1);
@@ -180,9 +186,17 @@
 		//#h prime
 		hprime = calRd(zG*9.8/9.80665, fHprime);
 		
+		//A
+		var pb = 1013.25;
+		var lprime = -0.0065;
+		var tb = 288.15;
+		var a = -pb * lprime * hprime/tb;
+		a = calRd(a, fA);
+		
 		seconds.innerHTML += '<li>Latitude = ' + lat + '</li>';
 		seconds.innerHTML += '<li>Zg = ' + zG + ' gpm</li>';
 		seconds.innerHTML += '<li>H = ' + hprime + " m'</li>";
+		seconds.innerHTML += '<li>a = ' + a + '</li>';
 		seconds.innerHTML += '<hr>';
 	}
 	
