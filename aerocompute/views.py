@@ -5,6 +5,7 @@ from django.shortcuts import render
 def hello(request):
 	per = '100'
 	tags = [
+				'2022-03-08 QNH Pressure From Table 3.12.2 แก้ไขค่า default',
 				'2020-10-08 QNH from Table WMO-No.188.TP.94 พร้อมใช้งาน',
 				'2020-09-30 หาความสูง QFE พร้อมใช้งาน',
 				'2020-09-24 Pressure From Table 3.12.2 เพิ่มระบบจำค่า input ล่าสุดใน TextBox',
